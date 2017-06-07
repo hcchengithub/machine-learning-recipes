@@ -22,6 +22,6 @@ clf = tree.DecisionTreeClassifier()  # Decision Tree classifier
 clf = clf.fit(features, labels)  # Find patterns in data
 
 # Make Predictions
-print clf.predict([[160, 0]])
+print (clf.predict([[160, 0]]))
 # Output: 0-apple, 1-orange
 # Correct output is: 1-orange

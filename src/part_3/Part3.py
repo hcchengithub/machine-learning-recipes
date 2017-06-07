@@ -21,7 +21,7 @@ plt.hist([grey_height, lab_height], stacked=True, color=['r', 'b'])
 plt.show()
 
 # Independent features are best
-# Avoid redundant features (height in in AND height in cm)
+# Avoid redundant features (height in inch AND height in cm)
 
 # Ideal features are:
 # Informative
