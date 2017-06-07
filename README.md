@@ -3,6 +3,10 @@ Machine Learning Recipes with Josh Gordon
 
 Follows the [Machine Learning Recipes with Josh Gordon](https://www.youtube.com/playlist?list=PLOU2XLYxmsIIuiBfYad6rFYQU_jL2ryal) series by [Google Developers](https://www.youtube.com/user/GoogleDevelopers).
 
+[If you were in the notorious GFW](https://pan.baidu.com/s/1skDzhNJ).
+
+[My Machine Learning exercises](https://github.com/hcchengithub/machine-learning-recipes).
+
 ## [Part 1 - Hello World](https://youtu.be/cKxRvEZd3Mw)
 Six lines of Python is all it takes to write your first machine learning program! In this episode, we'll briefly introduce what machine learning is and why it's important. Then, we'll follow a recipe for supervised learning (a technique to create a classifier from examples) and code it up.
 
@@ -17,3 +21,4 @@ In this episode, we’ll write a basic pipeline for supervised learning with jus
 
 ## [Part 5 - Writing Our First Classifier](https://youtu.be/AoeEHqVSNOw)
 Welcome back! It's time to write our first classifier. This is a milestone if you’re new to machine learning. We'll start with our code from episode #4 and comment out the classifier we imported. Then, we'll code up a simple replacement - using a scrappy version of k-Nearest Neighbors
+

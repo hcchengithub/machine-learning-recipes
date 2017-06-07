@@ -11,6 +11,23 @@
 .idea/dictionaries
 .idea/vcs.xml
 .idea/jsLibraryMappings.xml
+# Moocs/python-ML/
+Moocs/python-ML/Week2/trainingDigits/ 
+Moocs/python-ML/Week2/testDigits/ 
+Moocs/python-ML/Week2/A/ 
+Moocs/python-ML/Week2/B/ 
+Moocs/python-ML/Week2/C/ 
+Moocs/python-ML/Week2/D/ 
+Moocs/python-ML/Week2/E/ 
+Moocs/python-ML/Week3/assets/ 
+Moocs/python-ML/Week3/game/
+Moocs/python-ML/Week3/images/
+Moocs/python-ML/Week3/logs_bird/ 
+Moocs/python-ML/Week3/saved_networks/ 
+Moocs/python-ML/Week1/city.txt 
+Moocs/python-ML/Week1/person.png
+Moocs/python-ML/Week1/bull.jpg
+Moocs/python-ML/Week1/TestData.txt 
 
 # Sensitive or high-churn files:
 .idea/dataSources.ids
