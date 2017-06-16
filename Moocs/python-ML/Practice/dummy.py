@@ -33,14 +33,14 @@ def save_80x80(bitmap):
 
 DEBUG = True
 
-GAME = 'bird'
-ACTIONS = 2
+GAME = 'dummy_game'
+ACTIONS = 3
 GAMMA = 0.99
-OBSERVE = 10000.
-EXPLORE = 3000000.
+OBSERVE = 1000.
+EXPLORE = 3000.
 pdb.set_trace()
-FINAL_EPSILON = 0.0001
-INITIAL_EPSILON = 0.0001
+FINAL_EPSILON = 0.001
+INITIAL_EPSILON = 0.01
 REPLAY_MEMORY = 50000
 BATCH = 32
 FRAME_PER_ACTION = 1
@@ -133,10 +133,10 @@ def trainNetwork(s, readout, h_fc1, sess):
     # 用于加载或保存网络参数
     saver = tf.train.Saver()
     sess.run(tf.initialize_all_variables())
-    checkpoint = tf.train.get_checkpoint_state("saved_networks")  # path of saved network
+    checkpoint = tf.train.get_checkpoint_state("dgame_networks")  # path of saved network
     # pdb.set_trace() # breakpoint
     if checkpoint and checkpoint.model_checkpoint_path:
-        # (Pdb) checkpoint.model_checkpoint_path --> 'saved_networks\\bird-dqn-10000'
+        # (Pdb) checkpoint.model_checkpoint_path --> 'dgame_networks\\bird-dqn-10000'
         saver.restore(sess, checkpoint.model_checkpoint_path)
         print("Successfully loaded:", checkpoint.model_checkpoint_path)
     else:
@@ -215,9 +215,9 @@ def trainNetwork(s, readout, h_fc1, sess):
         s_t = s_t1
         t += 1
 
-        # 每进行10000次迭代，保留一下网络参数
-        if t % 10000 == 0:
-            saver.save(sess, 'saved_networks/' + GAME + '-dqn', global_step=t)
+        # 每进行 1000 次迭代，保留一下网络参数
+        if t % 1000 == 0:
+            saver.save(sess, 'dgame_networks/' + GAME + '-dqn', global_step=t)
 
         # 打印游戏信息
         state = ""

@@ -114,6 +114,7 @@ def trainNetwork(s, readout, h_fc1, sess):
 
     # 开启游戏模拟器，会打开一个模拟器的窗口，实时显示游戏的信息
     game_state = game.GameState()
+    # pdb.set_trace()  # 布置電腦螢幕畫面
     # 创建双端队列用于存放replay memory
     D = deque()
 
@@ -132,13 +133,13 @@ def trainNetwork(s, readout, h_fc1, sess):
     checkpoint = tf.train.get_checkpoint_state("saved_networks")  # path of saved network
     # pdb.set_trace() # breakpoint
     if checkpoint and checkpoint.model_checkpoint_path:
+        # pdb.set_trace()  # 接力
         # (Pdb) checkpoint.model_checkpoint_path --> 'saved_networks\\bird-dqn-10000'
         saver.restore(sess, checkpoint.model_checkpoint_path)
         print("Successfully loaded:", checkpoint.model_checkpoint_path)
-        pdb.set_trace()  # 接力
     else:
+        # pdb.set_trace()  # 從頭開始
         print("Could not find old network weights")
-        pdb.set_trace()  # 從頭開始
 
     # 开始训练
     epsilon = INITIAL_EPSILON

@@ -272,8 +272,9 @@ Temporary Items
 
 # Linux trash folder which might appear on any partition or disk
 .Trash-*
-Moocs/python-ML/Practice/data/data_test.txt
-Moocs/python-ML/Practice/game/dummy_game.py
-Moocs/python-ML/Practice/game/tetris_fun.py
-Moocs/python-ML/Practice/model_2.txt
-Moocs/python-ML/Practice/data/data_train.txt
+Moocs/python-ML/Practice/data/
+Moocs/python-ML/Practice/*.txt
+Moocs/python-ML/Practice/data/
+Moocs/python-ML/Practice/dgame_networks/
+Moocs/python-ML/Practice/saved_networks/
+Moocs/python-ML/Practice/__pycache__/
