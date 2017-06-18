@@ -6,11 +6,12 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff:
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/dictionaries
-.idea/vcs.xml
-.idea/jsLibraryMappings.xml
+.idea/
+# .idea/workspace.xml
+# .idea/tasks.xml
+# .idea/dictionaries
+# .idea/vcs.xml
+# .idea/jsLibraryMappings.xml
 # Moocs/python-ML/
 Moocs/python-ML/Week2/trainingDigits/ 
 Moocs/python-ML/Week2/testDigits/ 
@@ -19,6 +20,7 @@ Moocs/python-ML/Week2/B/
 Moocs/python-ML/Week2/C/ 
 Moocs/python-ML/Week2/D/ 
 Moocs/python-ML/Week2/E/ 
+Moocs/python-ML/Week3/.idea/
 Moocs/python-ML/Week3/assets/ 
 Moocs/python-ML/Week3/game/
 Moocs/python-ML/Week3/images/
@@ -276,3 +278,11 @@ Temporary Items
 
 # Linux trash folder which might appear on any partition or disk
 .Trash-*
+Moocs/python-ML/Practice/data/
+Moocs/python-ML/Practice/*.txt
+Moocs/python-ML/Practice/data/
+Moocs/python-ML/Practice/dgame_networks/
+Moocs/python-ML/Practice/saved_networks/
+Moocs/python-ML/Practice/__pycache__/
+Moocs/python-ML/Practice/pics/
+Moocs/python-ML/Practice/*.jpg

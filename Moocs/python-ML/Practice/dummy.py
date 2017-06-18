@@ -6,23 +6,47 @@ import cv2
 import sys
 
 sys.path.append("game/")
-import wrapped_flappy_bird as game
+import dummy_game as game
 import random
 import numpy as np
 from collections import deque
+import PIL.Image as image
 
-GAME = 'bird'
-ACTIONS = 2
+
+def save_screen(bitmap):
+    row, col, color = bitmap.shape
+    pic_new = image.new("RGB", (row, col))  # "L" 灰階, "RGB" 彩色
+    for i in range(row):
+        for j in range(col):
+            pic_new.putpixel((i, j), tuple(bitmap[i, j]))
+    pic_new.save("screen.jpg", "JPEG")
+
+
+def save_80x80(bitmap):
+    row, col = bitmap.shape
+    pic_new = image.new("L", (row, col))  # "L" 灰階, "RGB" 彩色
+    for i in range(row):
+        for j in range(col):
+            pic_new.putpixel((i, j), int(bitmap[i, j]))
+    pic_new.save("80x80.jpg", "JPEG")
+
+
+DEBUG = True
+
+GAME = 'dummy_game'
+ACTIONS = 3
 GAMMA = 0.99
-OBSERVE = 10000.
-EXPLORE = 3000000.
-FINAL_EPSILON = 0.0001
-INITIAL_EPSILON = 0.0001
+OBSERVE = 1000.
+EXPLORE = 3000.
+pdb.set_trace()
+FINAL_EPSILON = 0.001
+INITIAL_EPSILON = 0.01
 REPLAY_MEMORY = 50000
 BATCH = 32
 FRAME_PER_ACTION = 1
 
 
+# pdb.set_trace() # breakpoint 1
 def weight_variable(shape):
     initial = tf.truncated_normal(shape, stddev=0.01)
     return tf.Variable(initial)
@@ -33,11 +57,13 @@ def bias_variable(shape):
     return tf.Variable(initial)
 
 
-def conv2d(x, W, stride):
+# Convolution and Max pooling, so this is CNN
+# See 27:36 @ 「一天搞懂深度學習--學習心得-ZrEsLwCjdxY.mp4」
+def conv2d(x, W, stride):  # convolution
     return tf.nn.conv2d(x, W, strides=[1, stride, stride, 1], padding="SAME")
 
 
-def max_pool_2x2(x):
+def max_pool_2x2(x):  # Max pooling
     return tf.nn.max_pool(x, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding="SAME")
 
 
@@ -72,6 +98,7 @@ def createNetwork():
     h_conv3_flat = tf.reshape(h_conv3, [-1, 1600])
 
     h_fc1 = tf.nn.relu(tf.matmul(h_conv3_flat, W_fc1) + b_fc1)
+    # RELU see 19:00 in 「一天搞懂深度學習--學習心得-ZrEsLwCjdxY.mp4」
 
     # 输出层
     readout = tf.matmul(h_fc1, W_fc2) + b_fc2
@@ -80,6 +107,7 @@ def createNetwork():
 
 
 def trainNetwork(s, readout, h_fc1, sess):
+    # s 是 input layer, readout 是 output layer
     # 定义损失函数
     a = tf.placeholder("float", [None, ACTIONS])
     y = tf.placeholder("float", [None])
@@ -90,7 +118,6 @@ def trainNetwork(s, readout, h_fc1, sess):
 
     # 开启游戏模拟器，会打开一个模拟器的窗口，实时显示游戏的信息
     game_state = game.GameState()
-    pdb.set_trace()  # breakpoint
     # 创建双端队列用于存放replay memory
     D = deque()
 
@@ -98,6 +125,7 @@ def trainNetwork(s, readout, h_fc1, sess):
     do_nothing = np.zeros(ACTIONS)
     do_nothing[0] = 1
     x_t, r_0, terminal = game_state.frame_step(do_nothing)
+    # pdb.set_trace() # breakpoint
     x_t = cv2.cvtColor(cv2.resize(x_t, (80, 80)), cv2.COLOR_BGR2GRAY)
     ret, x_t = cv2.threshold(x_t, 1, 255, cv2.THRESH_BINARY)
     s_t = np.stack((x_t, x_t, x_t, x_t), axis=2)
@@ -105,8 +133,10 @@ def trainNetwork(s, readout, h_fc1, sess):
     # 用于加载或保存网络参数
     saver = tf.train.Saver()
     sess.run(tf.initialize_all_variables())
-    checkpoint = tf.train.get_checkpoint_state("saved_networks")
+    checkpoint = tf.train.get_checkpoint_state("dgame_networks")  # path of saved network
+    # pdb.set_trace() # breakpoint
     if checkpoint and checkpoint.model_checkpoint_path:
+        # (Pdb) checkpoint.model_checkpoint_path --> 'dgame_networks\\bird-dqn-10000'
         saver.restore(sess, checkpoint.model_checkpoint_path)
         print("Successfully loaded:", checkpoint.model_checkpoint_path)
     else:
@@ -116,6 +146,7 @@ def trainNetwork(s, readout, h_fc1, sess):
     epsilon = INITIAL_EPSILON
     t = 0
     while "flappy bird" != "angry bird":
+        # pdb.set_trace() # breakpoint
         # 使用epsilon贪心策略选择一个动作
         readout_t = readout.eval(feed_dict={s: [s_t]})[0]
         a_t = np.zeros([ACTIONS])
@@ -184,9 +215,9 @@ def trainNetwork(s, readout, h_fc1, sess):
         s_t = s_t1
         t += 1
 
-        # 每进行10000次迭代，保留一下网络参数
-        if t % 10000 == 0:
-            saver.save(sess, 'saved_networks/' + GAME + '-dqn', global_step=t)
+        # 每进行 1000 次迭代，保留一下网络参数
+        if t % 1000 == 0:
+            saver.save(sess, 'dgame_networks/' + GAME + '-dqn', global_step=t)
 
         # 打印游戏信息
         state = ""
