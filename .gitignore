@@ -28,6 +28,12 @@ Moocs/python-ML/Week1/city.txt
 Moocs/python-ML/Week1/person.png
 Moocs/python-ML/Week1/bull.jpg
 Moocs/python-ML/Week1/TestData.txt 
+*.whl
+*.xml
+*.iml
+*.pdf
+*.zip
+Moocs/python-ML/课程数据/
 
 # Sensitive or high-churn files:
 .idea/dataSources.ids

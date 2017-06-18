@@ -116,9 +116,8 @@ def trainNetwork(s, readout, h_fc1, sess):
     saver = tf.train.Saver()
     sess.run(tf.initialize_all_variables())
     checkpoint = tf.train.get_checkpoint_state("saved_networks") # path of saved network
-	pdb.set_trace() # breakpoint
+    # pdb.set_trace() # breakpoint
     if checkpoint and checkpoint.model_checkpoint_path:
-		# (Pdb) checkpoint.model_checkpoint_path --> 'saved_networks\\bird-dqn-10000'
         saver.restore(sess, checkpoint.model_checkpoint_path)
         print("Successfully loaded:", checkpoint.model_checkpoint_path)
     else:
@@ -128,7 +127,7 @@ def trainNetwork(s, readout, h_fc1, sess):
     epsilon = INITIAL_EPSILON
     t = 0
     while "flappy bird" != "angry bird":
-        pdb.set_trace() # breakpoint
+        # pdb.set_trace() # breakpoint
         # 使用epsilon贪心策略选择一个动作
         readout_t = readout.eval(feed_dict={s : [s_t]})[0]
         a_t = np.zeros([ACTIONS]) 
