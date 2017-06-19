@@ -19,6 +19,7 @@ Moocs/python-ML/Week2/B/
 Moocs/python-ML/Week2/C/ 
 Moocs/python-ML/Week2/D/ 
 Moocs/python-ML/Week2/E/ 
+Moocs/python-ML/Week3/.idea/ 
 Moocs/python-ML/Week3/assets/ 
 Moocs/python-ML/Week3/game/
 Moocs/python-ML/Week3/images/
@@ -28,6 +29,12 @@ Moocs/python-ML/Week1/city.txt
 Moocs/python-ML/Week1/person.png
 Moocs/python-ML/Week1/bull.jpg
 Moocs/python-ML/Week1/TestData.txt 
+Moocs/python-ML/Practice/.idea/
+Moocs/python-ML/Practice/data/
+Moocs/python-ML/Practice/dgame_networks/
+Moocs/python-ML/Practice/saved_networks/
+Moocs/python-ML/Practice/pics/
+Moocs/python-ML/Practice/*.jpg
 
 # Sensitive or high-churn files:
 .idea/dataSources.ids
