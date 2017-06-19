@@ -12,9 +12,12 @@ BOXSIZE = 20
 BOARDWIDTH = 10
 BOARDHEIGHT = 20
 BLANK = '.'
+<<<<<<< HEAD
 # penalty = num_holes * (stack_depth/K)**E
 K = 4
 E = 1.5	
+=======
+>>>>>>> 11d3cb44789f28d68646fce14e58aaf663dbb9af
 
 MOVESIDEWAYSFREQ = 0.15
 MOVEDOWNFREQ = 0.1
@@ -22,7 +25,11 @@ MOVEDOWNFREQ = 0.1
 XMARGIN = int((WINDOWWIDTH - BOARDWIDTH * BOXSIZE) / 2)
 TOPMARGIN = WINDOWHEIGHT - (BOARDHEIGHT * BOXSIZE) - 5
 
+<<<<<<< HEAD
 gamma = 2
+=======
+gamma = 4
+>>>>>>> 11d3cb44789f28d68646fce14e58aaf663dbb9af
 
 #				R	 G	  B
 WHITE		= (255, 255, 255)
@@ -48,6 +55,7 @@ assert len(COLORS) == len(LIGHTCOLORS) # each color must have light color
 TEMPLATEWIDTH = 5
 TEMPLATEHEIGHT = 5
 
+<<<<<<< HEAD
 S_SHAPE_TEMPLATE = \
 Z_SHAPE_TEMPLATE = \
 I_SHAPE_TEMPLATE = \
@@ -60,6 +68,8 @@ O_SHAPE_TEMPLATE = [['.OO..',
 					 '.....',
 					 '.....']]
 '''
+=======
+>>>>>>> 11d3cb44789f28d68646fce14e58aaf663dbb9af
 S_SHAPE_TEMPLATE = [['..OO.',
 					 '.OO..',
 					 '.....',
@@ -161,7 +171,11 @@ T_SHAPE_TEMPLATE = [['..O..',
 					 '..O..',
 					 '.....',
 					 '.....']]
+<<<<<<< HEAD
 '''
+=======
+
+>>>>>>> 11d3cb44789f28d68646fce14e58aaf663dbb9af
 PIECES = {'S': S_SHAPE_TEMPLATE,
 		  'Z': Z_SHAPE_TEMPLATE,
 		  'J': J_SHAPE_TEMPLATE,
@@ -227,10 +241,13 @@ class GameState:
 		
 	def frame_step(self,input):
 		# [nop, left, right, rotate, drop] 
+<<<<<<< HEAD
 		
 		# 加入這句話，解決畫面卡頓問題
 		pygame.event.pump()
 		
+=======
+>>>>>>> 11d3cb44789f28d68646fce14e58aaf663dbb9af
 		self.movingLeft = False
 		self.movingRight = False
 		
@@ -245,6 +262,11 @@ class GameState:
 			self.lastFallTime = time.time() # reset self.lastFallTime
 			
 			if not self.isValidPosition():
+<<<<<<< HEAD
+=======
+				if self.score < 50 : 
+					pdb.set_trace()	 # check why can't fit a new piece on the self.board
+>>>>>>> 11d3cb44789f28d68646fce14e58aaf663dbb9af
 				image_data = pygame.surfarray.array3d(pygame.display.get_surface())
 				terminal = True
 				print("!!!! Game over !!!!")
@@ -253,7 +275,11 @@ class GameState:
 				print("!!!! Game over !!!!")
 				print("!!!! Game over !!!!")
 				self.reinit()
+<<<<<<< HEAD
 				return image_data, reward-1000, terminal # can't fit a new piece on the self.board, so game over
+=======
+				return image_data, reward, terminal # can't fit a new piece on the self.board, so game over
+>>>>>>> 11d3cb44789f28d68646fce14e58aaf663dbb9af
 
 
 		# move left
@@ -344,8 +370,12 @@ class GameState:
 		pygame.display.update()
 
 		if cleared > 0:
+<<<<<<< HEAD
 			# reward = BOARDHEIGHT * BOARDWIDTH * cleared / (self.getNum_blocks() + 1)
 			reward = BOARDHEIGHT * BOARDWIDTH * cleared / (self.getNum_blocks() + 1)
+=======
+			reward = 100 * cleared
+>>>>>>> 11d3cb44789f28d68646fce14e58aaf663dbb9af
 
 		image_data = pygame.surfarray.array3d(pygame.display.get_surface())
 		return image_data, reward, terminal
@@ -357,12 +387,16 @@ class GameState:
 			for j in range(0, BOARDWIDTH):
 				if self.board[j][i] != '.':
 					blank_row = False
+<<<<<<< HEAD
 					break  # 以下不必再看了
+=======
+>>>>>>> 11d3cb44789f28d68646fce14e58aaf663dbb9af
 			if not blank_row:
 				stack_height = BOARDHEIGHT - i
 				break
 		return stack_height
 
+<<<<<<< HEAD
 	def getNum_blocks(self):
 		num_blocks = 0
 		for i in range(0, BOARDHEIGHT):
@@ -408,6 +442,8 @@ class GameState:
 			penalty += num_holes * (stack_depth/K)**E 
 		# penalty = num_holes * (stack_depth/K)**E
 		return -penalty
+=======
+>>>>>>> 11d3cb44789f28d68646fce14e58aaf663dbb9af
 	def getReward(self):
 		stack_height = None
 		num_blocks = 0
@@ -425,7 +461,11 @@ class GameState:
 		else:
 			# return BOARDHEIGHT - stack_height
 			return -(float(stack_height * BOARDWIDTH)/float(num_blocks))*gamma
+<<<<<<< HEAD
 
+=======
+	'''
+>>>>>>> 11d3cb44789f28d68646fce14e58aaf663dbb9af
 	def getReward(self):
 		stack_height = None
 		num_blocks = 0

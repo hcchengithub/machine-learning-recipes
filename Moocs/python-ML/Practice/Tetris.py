@@ -36,7 +36,11 @@ GAMMA = 0.99
 OBSERVE = 10000.
 EXPLORE = 3000000.
 FINAL_EPSILON = 0.0001
+<<<<<<< HEAD
 INITIAL_EPSILON = 0.5
+=======
+INITIAL_EPSILON = 0.001
+>>>>>>> 11d3cb44789f28d68646fce14e58aaf663dbb9af
 REPLAY_MEMORY = 50000
 BATCH = 32
 FRAME_PER_ACTION = 1
@@ -172,6 +176,7 @@ def trainNetwork(s, readout, h_fc1, sess):
 		x_t1 = cv2.cvtColor(cv2.resize(x_t1_colored, (80, 80)),
 							cv2.COLOR_BGR2GRAY)
 		ret, x_t1 = cv2.threshold(x_t1, 1, 255, cv2.THRESH_BINARY)
+<<<<<<< HEAD
 		#'''
 		# 大作业2 俄罗斯方块 ─ 畫面經「池化」等加工簡化過頭了嗎？ 
 		if t % 47 == 0: 
@@ -181,6 +186,14 @@ def trainNetwork(s, readout, h_fc1, sess):
 		#	save_80x80(x_t1)
 		# 以上抓圖查看證實，似乎不會。
 		#'''
+=======
+		# 大作业2 俄罗斯方块 ─ 畫面經「池化」等加工簡化過頭了嗎？ 
+		# if t % 47 == 0: 
+		# 	pdb.set_trace()
+		# 	save_screen(x_t1_colored)
+		# 	save_80x80(x_t1)
+		# 以上抓圖查看證實，似乎不會。
+>>>>>>> 11d3cb44789f28d68646fce14e58aaf663dbb9af
 		x_t1 = np.reshape(x_t1, (80, 80, 1))
 		s_t1 = np.append(x_t1, s_t[:, :, :3], axis=2)
 
@@ -241,10 +254,17 @@ def trainNetwork(s, readout, h_fc1, sess):
 		else:	
 			gover = 0
 		print("TIMESTEP", t, "/ STATE", state, \
+<<<<<<< HEAD
 			  # "/ EPSILON", epsilon, \
 			  # "/ ACTION", action_index, \
 			  # "/ Terminal", gover, \
 			  # "/ Score", game_state.score, \
+=======
+			  "/ EPSILON", epsilon, \
+			  "/ ACTION", action_index, \
+			  "/ Terminal", gover, \
+			  "/ Score", game_state.score, \
+>>>>>>> 11d3cb44789f28d68646fce14e58aaf663dbb9af
 			  "/ REWARD", r_t, \
 			  )	 # "/ Q_MAX %e" % np.max(readout_t))
 		# if r_t != 0 :

@@ -133,10 +133,15 @@ def trainNetwork(s, readout, h_fc1, sess):
     # 用于加载或保存网络参数
     saver = tf.train.Saver()
     sess.run(tf.initialize_all_variables())
+<<<<<<< HEAD
     checkpoint = tf.train.get_checkpoint_state("saved_networks")  # path of saved network
     # pdb.set_trace() # breakpoint
     if checkpoint and checkpoint.model_checkpoint_path:
         # (Pdb) checkpoint.model_checkpoint_path --> 'saved_networks\\bird-dqn-10000'
+=======
+    checkpoint = tf.train.get_checkpoint_state("saved_networks") # path of saved network
+    if checkpoint and checkpoint.model_checkpoint_path:
+>>>>>>> 11d3cb44789f28d68646fce14e58aaf663dbb9af
         saver.restore(sess, checkpoint.model_checkpoint_path)
         print("Successfully loaded:", checkpoint.model_checkpoint_path)
     else:

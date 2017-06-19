@@ -1,0 +1,7 @@
+'''
+    TensorFlow Activation Function
+    位於 Neuron 的輸出端, 用來篩選前一級加法器的結果。
+    Activation function 有很多種, Sigmoid, ReLU, ReLU6, 等等
+    查 Neural Network > Activation Functions 即見。
+    
+'''
