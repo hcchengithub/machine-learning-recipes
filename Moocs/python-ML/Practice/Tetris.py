@@ -173,7 +173,7 @@ def trainNetwork(s, readout, h_fc1, sess):
 							cv2.COLOR_BGR2GRAY)
 		ret, x_t1 = cv2.threshold(x_t1, 1, 255, cv2.THRESH_BINARY)
 		# 大作业2 俄罗斯方块 ─ 畫面經「池化」等加工簡化過頭了嗎？ 
-		# if t % 47 == 0: 
+		# if t % 97 == 0:    # 47
 		# 	pdb.set_trace()
 		# 	save_screen(x_t1_colored)
 		# 	save_80x80(x_t1)
