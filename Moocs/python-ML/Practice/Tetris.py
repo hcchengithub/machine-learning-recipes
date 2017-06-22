@@ -36,7 +36,7 @@ GAMMA = 0.99
 OBSERVE = 10000.
 EXPLORE = 3000000.
 FINAL_EPSILON = 0.0001
-INITIAL_EPSILON = 0.5
+INITIAL_EPSILON = 0.01
 REPLAY_MEMORY = 50000
 BATCH = 32
 FRAME_PER_ACTION = 1
@@ -122,9 +122,9 @@ def trainNetwork(s, readout, h_fc1, sess):
 	do_nothing = np.zeros(ACTIONS)
 	do_nothing[0] = 1
 	x_t, r_0, terminal = game_state.frame_step(do_nothing)	# 對 game 做動作
-	x_t = cv2.cvtColor(cv2.resize(x_t, (80, 80)), cv2.COLOR_BGR2GRAY)
-	ret, x_t = cv2.threshold(x_t, 1, 255, cv2.THRESH_BINARY)
-	s_t = np.stack((x_t, x_t, x_t, x_t), axis=2)
+	x_t = cv2.cvtColor(cv2.resize(x_t, (80, 80)), cv2.COLOR_BGR2GRAY)  # 到這裡是灰階的
+	ret, x_t = cv2.threshold(x_t, 1, 255, cv2.THRESH_BINARY)  # 灰階變成黑白
+	s_t = np.stack((x_t, x_t, x_t, x_t), axis=2)  # 壓合4張frame
 
 	# 用于加载或保存网络参数
 	saver = tf.train.Saver()
@@ -146,7 +146,7 @@ def trainNetwork(s, readout, h_fc1, sess):
 	while "flappy bird" != "angry bird":
 		# pdb.set_trace() # breakpoint
 		# 使用epsilon贪心策略选择一个动作
-		readout_t = readout.eval(feed_dict={s: [s_t]})[0]
+		readout_t = readout.eval(feed_dict={s: [s_t]})[0]  # 這個要看 Morvan tensorflow #8 的說明，把 args 傳進去
 		a_t = np.zeros([ACTIONS])  # 要餵給 NN 都用這種最終形式的編碼
 		action_index = 0
 		if t % FRAME_PER_ACTION == 0:
@@ -161,7 +161,7 @@ def trainNetwork(s, readout, h_fc1, sess):
 				a_t[action_index] = 1
 		else:
 			a_t[0] = 1	# 不执行跳跃动作
-			pdb.set_trace() # 這行永遠到不了吧？
+			pdb.set_trace() # 這行永遠到不了吧？ 對的，從來也沒斷到過。
 
 		# 随游戏的进行，不断降低epsilon，减少随机动作
 		if epsilon > FINAL_EPSILON and t > OBSERVE:
@@ -173,13 +173,16 @@ def trainNetwork(s, readout, h_fc1, sess):
 							cv2.COLOR_BGR2GRAY)
 		ret, x_t1 = cv2.threshold(x_t1, 1, 255, cv2.THRESH_BINARY)
 		# 大作业2 俄罗斯方块 ─ 畫面經「池化」等加工簡化過頭了嗎？ 
-		# if t % 47 == 0: 
+		# if t % 97 == 0:    # 47
 		# 	pdb.set_trace()
 		# 	save_screen(x_t1_colored)
 		# 	save_80x80(x_t1)
 		# 以上抓圖查看證實，似乎不會。
 		x_t1 = np.reshape(x_t1, (80, 80, 1))
-		s_t1 = np.append(x_t1, s_t[:, :, :3], axis=2)
+		s_t1 = np.append(x_t1, s_t[:, :, :3], axis=2)  # (Pdb) s_t[:,:,:3].shape --> (80, 80, 3)
+			# np.append http://blog.csdn.net/zyl1042635242/article/details/43162031 & Ynote: Python 搞懂 numpy.append(), Flappy Bird & Tetrris 裡用來壓合四個畫面有用到。
+			# 從第0張shift進去，把第3張擠掉。所以 s_t 是最近 4 張畫面。 0..3 新到舊。
+			# [ ] 這只適合 ping pong 跟 flappy bird 吧！？ Tetris 所需的長期記憶要深得多
 
 		# 将状态转移过程存储到D中，用于更新参数时采样
 		D.append((s_t, a_t, r_t, s_t1, terminal))
