@@ -33,11 +33,11 @@ def save_80x80(bitmap):
 GAME = 'tetris'
 ACTIONS = 5
 GAMMA = 0.99
-OBSERVE = 10000.
+OBSERVE = 1000.  # 對訓練無益
 EXPLORE = 3000000.
 FINAL_EPSILON = 0.0001
-INITIAL_EPSILON = 0.5
-REPLAY_MEMORY = 50000
+INITIAL_EPSILON = 0.01
+REPLAY_MEMORY = 500000  # 人家 https://github.com/asrivat1/DeepLearningVideoGames 用了 59萬，但他 Tetris 效果也不怎樣。
 BATCH = 32
 FRAME_PER_ACTION = 1
 
@@ -103,6 +103,10 @@ def createNetwork():
 
 
 def trainNetwork(s, readout, h_fc1, sess):
+	# HCChen: 簡化問題研究訓練方法
+	record = {}  # reward records 計算獎懲比例，代表神經網路的成績
+	rcount = 0   # 計次 到一萬次暫停，查看成績
+	
 	# s 是 input layer, readout 是 output layer
 	# 定义损失函数
 	a = tf.placeholder("float", [None, ACTIONS])
@@ -237,16 +241,18 @@ def trainNetwork(s, readout, h_fc1, sess):
 			gover = 1
 		else:	
 			gover = 0
-		print("TIMESTEP", t, "/ STATE", state, \
-			  "/ EPSILON", epsilon, \
-			  "/ ACTION", action_index, \
-			  "/ Terminal", gover, \
-			  "/ Score", game_state.score, \
-			  "/ REWARD", r_t, \
-			  )	 # "/ Q_MAX %e" % np.max(readout_t))
-		# if r_t != 0 :
-		# 	pdb.set_trace()  # check reward 
-
+		if r_t != 0 :
+			print("TIMESTEP", t, "/ STATE", state, \
+				  "/ EPSILON", epsilon, \
+				  "/ ACTION", action_index, \
+				  "/ Terminal", gover, \
+				  "/ Score", game_state.score, \
+				  "/ REWARD", r_t, \
+				  )	 # "/ Q_MAX %e" % np.max(readout_t))
+			record[r_t] = r_t in record.keys() and record[r_t]+1 or 1
+			rcount += 1
+			if rcount % 10000 == 0 :
+				pdb.set_trace()
 
 def playGame():
 	sess = tf.InteractiveSession()

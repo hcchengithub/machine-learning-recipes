@@ -299,7 +299,7 @@ class GameState:
 		cleared = 0
 		if not self.isValidPosition(adjY=1):
 			# falling piece has landed, set it on the self.board
-			landed = True  # HCChen 特訓reward用
+			# landed = True  # HCChen 特訓reward用
 			self.addToBoard()
 
 			cleared = self.removeCompleteLines()
@@ -318,7 +318,9 @@ class GameState:
 			self.lines += cleared
 			self.total_lines += cleared
 
-			reward = self.height - self.getHeight()
+			if self.height:  # cleared 之後不該為了高度增加受罰
+				reward = self.height - self.getHeight()
+			
 			self.height = self.getHeight()
 
 			self.level, self.fallFreq = self.calculateLevelAndFallFreq()
@@ -327,7 +329,7 @@ class GameState:
 
 		else:
 			# piece did not land, just move the piece down
-			landed = False  # HCChen 特訓reward用
+			# landed = False  # HCChen 特訓reward用
 			self.fallingPiece['y'] += 1
 
 		# drawing everything on the screen
@@ -342,12 +344,25 @@ class GameState:
 		image_data = pygame.surfarray.array3d(pygame.display.get_surface())
 		
 		# HCChen: $$$$$$$$$$$$$$$$$$$$$$$ reward 獎懲辦法 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+		'''
+		# 這個方法錯在經過 cleared 之後的下一次不該懲罰卻因不是 cleared 而受罰，而且用上 landed 嫌冗贅
+		# [x] 只要簡單地看 num_blocks 有沒有超過就可以了！ <-- 不夠好，看高度更好。
+		# [ ] 看高度超過就是投錯了。
 		if cleared > 0:
 			# HCChen: 越早 cleared 越受鼓勵。
 			reward = BOARDHEIGHT * BOARDWIDTH * cleared / (self.getNum_blocks() + 1)
 		else:
 			# 特訓用，landed 而沒有 cleared 就是沒有投對地方。
 			if landed:
+				self.reinit()
+				return image_data, reward-400, True # 特訓：一次機會，沒扔對地方
+		'''
+		if cleared > 0:
+			# HCChen: 越早 cleared 越受鼓勵。
+			reward = BOARDHEIGHT * BOARDWIDTH * cleared / (self.getNum_blocks() + 1)
+		else:
+			# 特訓用，landed 而沒有 cleared 就是沒有投對地方。
+			if self.height > 2:  # 超過「方形磚」的高度就是投錯了
 				self.reinit()
 				return image_data, reward-400, True # 特訓：一次機會，沒扔對地方
 
