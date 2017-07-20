@@ -3,7 +3,7 @@ import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.naive_bayes import GaussianNB
-
+import pdb
 
 def load_train(data_path):
     df = pd.read_table(data_path, delimiter=' ', header=None)  # pandas.core.frame.DataFrame
@@ -19,7 +19,8 @@ def load_test(data_path):
     return feature
 
 
-if __name__ == '期末大作业1':  # was '__main__': 在 PyCharm 好像就得這樣。
+# if __name__ == '期末大作业1':  # was '__main__': 在 PyCharm 好像就得這樣。
+if __name__ == '__main__': 
     ''' 数据路径 '''  # data/data_train.txt data/data_test.txt
     ''' 读入数据  '''
     x_train, y_train = load_train("data/data_train.txt")  # x_train.shape --> (406708, 54), y_train.shape --> (406708,)
