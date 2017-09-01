@@ -19,38 +19,9 @@
 
     # scikit-learn datasets: http://scikit-learn.org/stable/datasets/
     # already includes Iris dataset: load_iris
-
-    from sklearn.datasets import load_iris
-
-    iris = load_iris()
-
-    # print iris.feature_names  # metadata: names of the features
-    # print iris.target_names  # metadata: names of the different types of flowers
-
-    #Python 3.6.0 |Anaconda 4.3.1
-    print(iris.feature_names)
-    print(iris.target_names)
-
-    # print iris.data  # features and examples themselves
-    # print iris.data[0]  # first flower
-    # print iris.target[0]  # contains the labels
-
-    #Python 3.6.0 |Anaconda 4.3.1
-    print(iris.data[0])
-    print(iris.target[0])
-
-    # print entire dataset
-    for i in range(len(iris.target)):
-        print ("Example %d: label %s, features %s" % (i, iris.target[i], iris.data[i]))
-
-    # Testing Data
-    # Examples used to test the classifier's accuracy
-    # Not part of the training data
-
-    # ＠＠＠＠＠＠＠＠＠＠ 第二部份 ＠＠＠＠＠＠＠＠＠＠
+    
     import numpy as np
-    # import pdb
-    # from sklearn.datasets import load_iris 
+    from sklearn.datasets import load_iris 
     from sklearn import tree
 
     iris = load_iris()
@@ -58,36 +29,39 @@
     # found at indices: 0, 50, 100
     test_idx = [0, 50, 100]  # 故意挑出三個出來，當作測試組。每種類各挑一個，共三個。其餘的留在訓練組。
 
-    push(locals());ok('111>>')
     
     # create 2 new sets of variables, for training and testing
+    
     # training data
     # remove the entires from the data and target variables
     train_target = np.delete(iris.target, test_idx)       # 從訓練組中剔除測試組的三筆資料
     train_data = np.delete(iris.data, test_idx, axis=0)   # 我的 test-iris.py 有針對 np.delete() 的實驗，搞懂它。
-
-    # testing data
+    
+    # testing data 挑出上面剔除的，拿來當測試資料
     test_target = iris.target[test_idx]  # 故意挑出三個出來，當作測試組。每種類各挑一個，共三個。其餘的留在訓練組。
     test_data = iris.data[test_idx]
+    
 
     # create new classifier
     clf = tree.DecisionTreeClassifier() # 祭出法寶
     # train on training data
     clf.fit(train_data, train_target) # 施咒，請寶貝轉身！
 
-    # what we expect
-    # print test_target
-
-    #Python 3.6.0 |Anaconda 4.3.1
-    print(test_target)
-
-    # what tree predicts
-    #print clf.predict(test_data)
-
-    #Python 3.6.0 |Anaconda 4.3.1
-    print (clf.predict(test_data))
-
-    # pdb.set_trace() # breakpoint
+    ## what we expect
+    ## print test_target
+    #
+    ##Python 3.6.0 |Anaconda 4.3.1
+    #print(test_target)
+    #
+    ## what tree predicts
+    ##print clf.predict(test_data)
+    #
+    ##Python 3.6.0 |Anaconda 4.3.1
+    #print (clf.predict(test_data))
+    #
+    ## pdb.set_trace() # breakpoint
+    
+    push(locals());ok('111>>')
 
     # Visualize
     # from scikit decision tree tutorial: http://scikit-learn.org/stable/modules/tree.html
@@ -101,12 +75,10 @@
                          filled=True, rounded=True,
                          impurity=False)
     graph = pydot.graph_from_dot_data(dot_data.getvalue())
-    # pdb.set_trace()
-    # pass
-    
     graph.write_pdf("iris.pdf")
-    # Image(graph.create_png())
 
+    push(locals());ok('222>>')
+    
     '''
     --
     graph.write_pdf("iris.pdf") 有問題，研究幾下發現不行了，別人已經問了：
@@ -193,4 +165,3 @@
     '''
     push(locals())
     </py> 
-    constant locals // ( -- dict ) static values of the locals() of the above namespace
