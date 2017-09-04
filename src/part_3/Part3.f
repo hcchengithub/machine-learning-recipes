@@ -45,7 +45,7 @@
     stop
     
     本課老師的意思是光從高度來分辨兩種犬類，有部分重疊而無法分辨。
-    如上 Ideal features 的指標所陳。
+    如上 Ideal features 的指標 (Ideal features are...) 所陳。
 
 
 
