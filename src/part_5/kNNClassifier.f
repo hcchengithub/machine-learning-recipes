@@ -55,13 +55,14 @@
                 # push({'locals':locals(),'tag':22});ok('22> ') 
 
                 return max( majority , key = majority.get )
-            
-            if debug<=33: ok('33> ',locals()) # breakpoint
+            # if debug<=33: ok('33> ',locals()) # breakpoint
+            # 當只有一組 feature 時,傳回單一個最近的 label 作為推算結果
+            # 否則一整列 feature 時,推算結果是一列 labels
             if testFeatures.ndim == 1:    #only one point to predict
-                if debug<=44: ok('44> ',locals()) # breakpoint
+                # if debug<=44: ok('44> ',locals()) # breakpoint
                 return closest( testFeatures )
             else:
-                if debug<=55: ok('44> ',locals()) # breakpoint
+                # if debug<=55: ok('44> ',locals()) # breakpoint
                 prediction = numpy.array( [closest(point) for point in testFeatures] )
                 return prediction 
 
@@ -89,6 +90,9 @@
     stop 
     
     本範例真的把 KNN classifier 打造出來了！
+    class kNearestNeighbours 內含 fit() , predict() 很熟悉，正是
+    classifier 改有的東西，寫得很漂亮。check.py module 也自己寫，
+    提供了 CheckClassifier() 也很簡短漂亮。
     
     --
     Study EuclidDist
