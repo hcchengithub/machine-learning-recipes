@@ -20,31 +20,25 @@
     # Training Data
     # features = [[140, "smooth"], [130, "smooth"], [150, "bumpy"], [170, "bumpy"]]  # Input to classifier
     features = [[140, 1], [130, 1], [150, 0], [170, 0]]  # scikit-learn uses real-valued features
-    push(features) 
     # labels = ["apple", "apple", "orange", "orange"]  # Desired output
     labels = [0, 0, 1, 1]
-    push(labels)
 
     # Train Classifer
     clf = tree.DecisionTreeClassifier()  # Decision Tree classifier
-    push(clf) # the DT classifier without training
     clf = clf.fit(features, labels)  # Find patterns in data
-    push(clf) # the DT classifier trained
 
     # Make Predictions
     print (clf.predict([[160, 0]]))
     # Output: 0-apple, 1-orange
     # Correct output is: 1-orange
-    
+
+    push(locals())
 </py> ( features labels clf clf.trained ) 
-constant clf'
-constant clf 
-constant labels 
-constant features 
+constant locals // ( -- dict ) Locals of the exercise block 
 
 \ # 故意丟些變化球看看，好玩！
-clf' :> predict([[153,0]]) tib. \ bumpy   result is [1]  
-clf' :> predict([[120,0]]) tib. \ bumpy   result is [0] 
-clf' :> predict([[190,1]]) tib. \ smooth  result is [1] 
+\ clf' :> predict([[153,0]]) tib. \ bumpy   result is [1]  
+\ clf' :> predict([[120,0]]) tib. \ bumpy   result is [0] 
+\ clf' :> predict([[190,1]]) tib. \ smooth  result is [1] 
 
 

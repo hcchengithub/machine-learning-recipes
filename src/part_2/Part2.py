@@ -18,6 +18,9 @@
 # scikit-learn datasets: http://scikit-learn.org/stable/datasets/
 # already includes Iris dataset: load_iris
 
+import endo
+endo.l = locals()
+
 from sklearn.datasets import load_iris
 
 iris = load_iris()
@@ -47,11 +50,10 @@ for i in range(len(iris.target)):
 
 # ＠＠＠＠＠＠＠＠＠＠ 第二部份 ＠＠＠＠＠＠＠＠＠＠
 import numpy as np
-import pdb
 # from sklearn.datasets import load_iris 
 from sklearn import tree
 
-iris = load_iris()
+# iris = load_iris()
 # here, we remove the first example of each flower
 # found at indices: 0, 50, 100
 test_idx = [0, 50, 100]  # 故意挑出三個出來，當作測試組。每種類各挑一個，共三個。其餘的留在訓練組。
@@ -83,8 +85,6 @@ print(test_target)
 #Python 3.6.0 |Anaconda 4.3.1
 print (clf.predict(test_data))
 
-pdb.set_trace() # breakpoint
-
 # Visualize
 # from scikit decision tree tutorial: http://scikit-learn.org/stable/modules/tree.html
 from sklearn.externals.six import StringIO
@@ -97,10 +97,8 @@ tree.export_graphviz(clf, out_file=dot_data,
                      filled=True, rounded=True,
                      impurity=False)
 graph = pydot.graph_from_dot_data(dot_data.getvalue())
-pdb.set_trace()
-pass
 graph.write_pdf("iris.pdf")
-# Image(graph.create_png())
+
 
 '''
 --
@@ -186,3 +184,5 @@ value = [0, 0, 2]\\nclass = virginica", fillcolor="#8139e5ff"] ;\n13 -> 15 ;\n
 (Pdb)
 
 '''
+
+endo.bp()

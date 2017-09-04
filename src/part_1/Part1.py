@@ -1,7 +1,8 @@
 # Part 1 - Hello World - https://youtu.be/cKxRvEZd3Mw
 
 # Follow a recipe for supervised learning (a technique to create a classifier from examples) and code it up.
-
+# import endo
+# endo.Local = locals()
 from sklearn import tree
 
 # Examples
@@ -25,3 +26,5 @@ clf = clf.fit(features, labels)  # Find patterns in data
 print (clf.predict([[160, 0]]))
 # Output: 0-apple, 1-orange
 # Correct output is: 1-orange
+# endo.bp('11>')
+# endo.bp('22>')
