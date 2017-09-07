@@ -2,8 +2,8 @@
 Machine Learning Recipes with Josh Gordon
 
 Follows the [Machine Learning Recipes with Josh Gordon](https://www.youtube.com/playlist?list=PLOU2XLYxmsIIuiBfYad6rFYQU_jL2ryal) series by [Google Developers](https://www.youtube.com/user/GoogleDevelopers).
-
-[If you were in the notorious GFW](https://pan.baidu.com/s/1skDzhNJ).
+Or [An incompleted clone on Youku.com in communist China](http://i.youku.com/i/UMjczOTc0NDkzNg==/custom?id=87105)
+Or [My downloads from YouTube when the GFW was still having windows](https://pan.baidu.com/s/1skDzhNJ).
 
 [My Machine Learning exercises](https://github.com/hcchengithub/machine-learning-recipes).
 
