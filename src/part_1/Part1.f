@@ -31,10 +31,10 @@
     print (clf.predict([[160, 0]]))
     # Output: 0-apple, 1-orange
     # Correct output is: 1-orange
-
-    push(locals())
-</py> ( features labels clf clf.trained ) 
-constant locals // ( -- dict ) Locals of the exercise block 
+    outport(locals())
+</py> 
+\ ( features labels clf clf.trained ) 
+\ constant locals // ( -- dict ) Locals of the exercise block 
 
 \ # 故意丟些變化球看看，好玩！
 \ clf' :> predict([[153,0]]) tib. \ bumpy   result is [1]  
