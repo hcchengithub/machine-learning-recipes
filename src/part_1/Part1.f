@@ -31,14 +31,30 @@
     print (clf.predict([[160, 0]]))
     # Output: 0-apple, 1-orange
     # Correct output is: 1-orange
-    outport(locals())
+    outport(locals()) #11 
 </py> 
-\ ( features labels clf clf.trained ) 
-\ constant locals // ( -- dict ) Locals of the exercise block 
 
-\ # 故意丟些變化球看看，好玩！
-\ clf' :> predict([[153,0]]) tib. \ bumpy   result is [1]  
-\ clf' :> predict([[120,0]]) tib. \ bumpy   result is [0] 
-\ clf' :> predict([[190,1]]) tib. \ smooth  result is [1] 
+stop 
+
+\ 用 python interpreter 也不是不行,就是功能不多,打字較煩
+clf.predict([[100,0]])
+clf.predict([[101,0]])
+clf.predict([[102,0]])
+clf.predict([[103,0]])
+clf.predict([[104,0]])
+clf.predict([[105,0]])
+clf.predict([[106,0]])
+clf.predict([[107,0]])
+
+\ 隨便玩玩
+    clf :> predict([[120,0]]) tib. 
+    clf :> predict([[190,1]]) tib. 
+
+\ 整個分布都打出來看看，好玩！
+    101 [for] 101 t@ - 100 + dup . space 
+        clf :> predict([[pop(),0]]) tib. [next]
+    101 [for] 101 t@ - 100 + dup . space 
+        clf :> predict([[pop(),1]]) tib. [next]
+    
 
 
