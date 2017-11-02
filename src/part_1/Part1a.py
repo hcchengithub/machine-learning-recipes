@@ -1,3 +1,5 @@
+import peforth; peforth.ok(loc=locals(),cmd="include xray.f")
+
 # Part 1 - Hello World - https://youtu.be/cKxRvEZd3Mw
 
 # Follow a recipe for supervised learning (a technique to create a classifier from examples) and code it up.
@@ -29,6 +31,4 @@ print (clf.predict([[160, 0]]))
 # endo.bp('11>')
 # endo.bp('22>')
 
-import peforth
-peforth.ok(loc=locals(),cmd=":> [0] inport")
-
+peforth.ok('1ddd1> ')
