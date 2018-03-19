@@ -47,8 +47,8 @@ if __name__ == '__main__':
 
 
     #IRIS DATASET
-    feature_set = numpy.loadtxt('Fisher.csv',delimiter = ',',skiprows = 1,usecols = (1,2,3,4))
-    label_set   = numpy.loadtxt('Fisher.csv',delimiter = ',',skiprows = 1, usecols = (0,))
+    feature_set = numpy.loadtxt('Datasets/Fisher.csv',delimiter = ',',skiprows = 1,usecols = (1,2,3,4))
+    label_set   = numpy.loadtxt('Datasets/Fisher.csv',delimiter = ',',skiprows = 1, usecols = (0,))
 
 
     #TITANIC DATASET
